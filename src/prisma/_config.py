@@ -27,7 +27,7 @@ class DefaultConfig(BaseSettings):
     #       doesn't change then the CLI is incorrectly cached
     prisma_version: str = Field(
         env='PRISMA_VERSION',
-        default='5.19.0',
+        default='6.19.0',
     )
 
     # Engine binary versions can be found under https://github.com/prisma/prisma-engine/commits/main

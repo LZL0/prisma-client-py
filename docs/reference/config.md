@@ -4,23 +4,25 @@ There are two main methods for configuring Prisma Client Python:
 
 1. Through the `[tool.prisma]` section in the [pyproject.toml](#config-options) file for your project
 
-    Used for any configuration that needs to happen pre-generation such as changing the [location of the binaries](#binary-cache-directory).
+   Used for any configuration that needs to happen pre-generation such as changing the [location of the binaries](#binary-cache-directory).
 
 2. Through the `generator` block in your [schema.prisma](#generator-options) file
 
-    Used for any configuration that applies directly to the generated code such as generating a [synchronous or asynchronous](#interface) client.
+   Used for any configuration that applies directly to the generated code such as generating a [synchronous or asynchronous](#interface) client.
 
 ## Generator Options
 
 Options are passed to Prisma Client Python using the `generator` block in the `schema.prisma` file
 
 For example:
+
 ```prisma
 generator db {
   provider = "prisma-client-py"
   config_option = "value"
 }
 ```
+
 See the [official docs](https://www.prisma.io/docs/concepts/components/prisma-schema/generators) for options that are not specific to Prisma Client Python.
 
 ### Interface
@@ -31,8 +33,8 @@ This option configures the method you will use to interface with the client.
 
 Valid values are:
 
-* asyncio
-* sync
+- asyncio
+- sync
 
 If `asyncio` is used then the generated client will be asynchronous and code must be ran using asyncio, e.g.
 
@@ -41,6 +43,7 @@ user = await db.user.find_unique(where={'id': 'user_id'})
 ```
 
 And if `sync` is used then the generated client will be synchronous, e.g.
+
 ```py
 user = db.user.find_unique(where={'id': 'user_id'})
 ```
@@ -53,7 +56,7 @@ The script that generates the partial types can be configured using the `partial
 
 You can pass either an absolute module import or a path.
 !!! warning
-    Passing a module will also import any parent packages, e.g. given `foo.bar.partials`, `foo` and `bar` will also be imported
+Passing a module will also import any parent packages, e.g. given `foo.bar.partials`, `foo` and `bar` will also be imported
 
 #### Examples
 
@@ -74,11 +77,11 @@ generator db {
 ### Recursive Type Depth
 
 !!! warning
-    Increasing the number of types generated can exponentially increase the time taken and resources used by static type checkers.
+Increasing the number of types generated can exponentially increase the time taken and resources used by static type checkers.
 
 As some python static type checkers do not support recursive types, Prisma Client Python can generate recursive and psuedo-recursive types to an arbitrary depth.
 
-This depth can be controlled with the `recursive_type_depth` option, if `-1` is given then recursive types will be generated and if a value greater than or equal to  `2` is given then psuedo-recursive types will be generated to the given depth.
+This depth can be controlled with the `recursive_type_depth` option, if `-1` is given then recursive types will be generated and if a value greater than or equal to `2` is given then psuedo-recursive types will be generated to the given depth.
 
 #### Examples
 
@@ -150,7 +153,7 @@ user = await db.user.find_unique(
 ##### Increase
 
 !!! warning
-    Increasing the number of types generated can exponentially increase the time taken and resources used by static type checkers.
+Increasing the number of types generated can exponentially increase the time taken and resources used by static type checkers.
 
 There is no maximum value, recursive types can be nested arbitrarily deep.
 
@@ -201,26 +204,25 @@ Or through environment variables, e.g. `PRISMA_BINARY_CACHE_DIR`. In the case th
 
 This option controls where the Prisma Engine and Prisma CLI binaries should be downloaded to. This defaults to a cache directory that includes the current Prisma Engine version.
 
-| Option             | Environment Variable       | Default                                                                   |
-| ------------------ | -------------------------- | ------------------------------------------------------------------------- |
-| `binary_cache_dir` | `PRISMA_BINARY_CACHE_DIR`  | `/{home}/.cache/prisma-python/binaries/{prisma_version}/{engine_version}` |
+| Option             | Environment Variable      | Default                                                                   |
+| ------------------ | ------------------------- | ------------------------------------------------------------------------- |
+| `binary_cache_dir` | `PRISMA_BINARY_CACHE_DIR` | `/{home}/.cache/prisma-python/binaries/{prisma_version}/{engine_version}` |
 
 ### Home Directory
 
 This option can be used to change the base directory of the `binary_cache_dir` option without having to worry about versioning the Prisma binaries. This is useful if you need to download the binaries to a local directory.
 
-| Option     | Environment Variable  | Default |
-| --------   | --------------------- | ------- |
-| `home_dir` | `PRISMA_HOME_DIR`     | `~`     |
-
+| Option     | Environment Variable | Default |
+| ---------- | -------------------- | ------- |
+| `home_dir` | `PRISMA_HOME_DIR`    | `~`     |
 
 ### Prisma Version
 
 This option controls the version of Prisma to use. It should be noted that this is intended to be internal and only the pinned Prisma version is guaranteed to be supported.
 
-| Option           | Environment Variable  | Default  |
-| ---------------- | --------------------- | -------- |
-| `prisma_version` | `PRISMA_VERSION`      | `5.19.0` |
+| Option           | Environment Variable | Default  |
+| ---------------- | -------------------- | -------- |
+| `prisma_version` | `PRISMA_VERSION`     | `6.19.0` |
 
 ### Expected Engine Version
 
@@ -230,7 +232,6 @@ This is an internal option that is here as a safeguard for the `prisma_version` 
 | ------------------------- | -------------------------------- | ------------------------------------------ |
 | `expected_engine_version` | `PRISMA_EXPECTED_ENGINE_VERSION` | `5fe21811a6ba0b952a3bc71400666511fe3b902f` |
 
-
 ### Binary Platform
 
 This option is useful if you need to make use of the [binaryTargets](https://www.prisma.io/docs/concepts/components/prisma-schema/generators#binary-targets) schema option to build your application on one platform and deploy it on another.
@@ -238,7 +239,6 @@ This option is useful if you need to make use of the [binaryTargets](https://www
 This allows you to set the current platform dynamically as Prisma Client Python does not have official support for `binaryTargets` and although we do have some safe guards in place to attempt to use the correct binary, it has not been thoroughly tested.
 
 A list of valid options can be found [here](https://www.prisma.io/docs/reference/api-reference/prisma-schema-reference#binarytargets-options).
-
 
 | Option            | Environment Variable     |
 | ----------------- | ------------------------ |
